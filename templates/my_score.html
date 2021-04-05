@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post">
+<h3><a href="/student_exam">Back</a></h3>
+    <table border="2" width="60%">
+        <tr>
+            <th>Student Name</th>
+            <th>Exam Name</th>
+            <th>score</th>
+            <th>Total</th>
+        </tr>
+        {% for score in scores %}
+            <tr>
+            <th>{{ score.student.name }}</th>
+            <th>{{ score.exam.name}}</th>
+            <th>{{ score.student_score }}</th>
+            <th>{{ score.total }}</th>
+            </tr>
+        {% endfor %}
+    </table>
+</form>
+</body>
+</html>

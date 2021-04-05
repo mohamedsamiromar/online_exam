@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+        <h3><a href="/auth/login">logout</a></h3>
+        <h3><a href="/my_score">My Score</a></h3>
+
+    {% csrf_token %}
+<table border="1">
+<h3>All Exams</h3>
+<tr>
+    <th>Exam </th>
+    <th>Teacher</th>
+</tr>
+
+{% for assexam in student_exams %}
+
+<tr>
+    <td><a href="take_exam?examId={{ assexam.exam.id }}">{{ assexam.exam.name }}</a></td>
+    <td >{{assexam.teacher.name}}</td>
+</tr>
+{% endfor %}
+</table>
+</body>
+</html>
+
+

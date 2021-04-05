@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Teacher Home</title>
+</head>
+<body>
+<h1>Teacher Home </h1>
+<table border="1" width="60%" >
+    <tr>
+        <th>Exams</th>
+    </tr>
+    <tr>
+        <h3><a href="/">Back TO Home</a></h3>
+        <h3><a href="/auth/login"> Logout</a></h3>
+
+    </tr>
+    <tr>
+        <td>
+            <h3><a href="/create_exam">Add Exam</a></h3>
+            <h3><a href="/assign_exam">Assign Exam</a></h3>
+
+        </td>
+    </tr>
+<table border="1" width="50%%" >
+<br>
+<br>
+    <tr>
+        <td>
+                <h3>All Exams</h3>
+        </td>
+    </tr>
+      <tr>
+              {% for exam in teacher_exams %}
+        <td>
+               <a href="take_exam?examId={{ exam.id }}">{{ exam.name}}</a>
+        </td>
+      </tr>
+
+        {% endfor %}
+</table>
+</table>
+</body>
+</html>

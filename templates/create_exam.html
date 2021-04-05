@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>create exam</title>
+</head>
+<body>
+<form method="post" action="/create_exam">
+            {% csrf_token %}
+    <h3><a href="/teacher_home">Back To Home Teacher</a></h3>
+    <table>
+        <tr>
+            <td>Exam Name</td>
+            <td><input name="name" type="text"></td>
+        </tr>
+    </table>
+    <button type="button" onclick="addNewQuestion()"> Add New Question</button>
+    <div id="questionContainer">
+            <fieldset>
+                <legend>Question 1</legend>
+                <span><label>Question Title: </label><input type="text"  name="q1"></span>
+                <h4>Score :</h4>
+                    <input type="number" name="grade_q1" value="Score">
+                <h4>Choices</h4>
+                <span id="q1-choices">
+                    <input style="width: 40px;" type="text" name="c1-q1">
+                    <input type="radio" value="0" name="answer_q1">
+                </span>
+                <button type="button" onclick="addNewChoice('q1-choices', 1)">New Choice</button>
+            </fieldset>
+    </div>
+
+    <br>
+    <input type="submit" value="Save">
+</form>
+<script>
+    function addNewQuestion() {
+        const container = document.getElementById("questionContainer");
+        const questionCount = container.childElementCount;
+
+        const questionFieldSet = document.createElement('fieldset');
+        const legend = document.createElement("legend");
+        legend.innerText = 'Question '+ (questionCount+1);
+        questionFieldSet.appendChild(legend);
+
+        const label = document.createElement('label');
+        label.innerText='Question Title: ';
+
+        const questionTitleInput = document.createElement('input');
+        questionTitleInput.name = 'q' + (questionCount+1);
+        questionTitleInput.setAttribute('type', 'text');
+
+       const span = document.createElement("span");
+       span.appendChild(label);
+       span.appendChild(questionTitleInput);
+       questionFieldSet.appendChild(span);
+
+        const label2 = document.createElement('label');
+        label2.innerText=' Score: ';
+        let degree = document.createElement('input')
+        degree.setAttribute('name', 'grades_q' + questionCount)
+        degree.setAttribute('type', 'number');
+        degree.setAttribute('value', 'degree');
+        questionFieldSet.appendChild(document.createElement('br'))
+        questionFieldSet.appendChild(label2);
+        questionFieldSet.appendChild(degree);
+
+
+       const h4 = document.createElement('h4');
+       h4.innerText  = 'Choices';
+       questionFieldSet.appendChild(h4);
+
+       const choicesDiv = document.createElement('span');
+       choicesDiv.id = 'q'+(questionCount+1) +'-choices';
+       questionFieldSet.appendChild(choicesDiv);
+
+       container.appendChild(questionFieldSet);
+       addNewChoice(choicesDiv.id, (questionCount+1));
+
+       const button = document.createElement('button');
+       button.setAttribute('type', 'button');
+       button.onclick = function() {addNewChoice(choicesDiv.id,(questionCount+1));};
+       button.innerText = 'New Choice';
+
+       questionFieldSet.appendChild(button);
+    }
+    function addNewChoice(containerId, questionIndex) {
+        let container = document.getElementById(containerId);
+        const choiceCount = container.childElementCount;
+        let choiceInput = document.createElement('input');
+        choiceInput.setAttribute('type', 'text');
+        choiceInput.style = "width: 40px; margin-right: 5px;";
+        choiceInput.setAttribute('name', 'c'+(choiceCount+1)+'-q'+ questionIndex);
+        {#document.getElementById(containerId).appendChild(choiceInput);#}
+
+        let isCorrectAnswer = document.createElement('input');
+        isCorrectAnswer.setAttribute('name', 'answer_q' + questionIndex);
+        isCorrectAnswer.setAttribute('type', 'radio');
+        isCorrectAnswer.setAttribute('value', choiceCount-1);
+        {#document.getElementById(containerId).appendChild(isCorrectAnswer);#}
+        let choiceContanier =  document.createElement("span");
+        choiceContanier.appendChild(choiceInput);
+        choiceContanier.appendChild(isCorrectAnswer);
+        document.getElementById(containerId).appendChild(choiceContanier);
+    }
+
+</script>
+</body>
+</html>

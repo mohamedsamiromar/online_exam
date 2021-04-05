@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+     <style>
+        .alert{
+            color: red;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>student</title>
+</head>
+<body>
+
+
+{% if form %}
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}
+                <div class="alert">
+                    <strong>{{ field.name }} - {{ error|escape }}</strong>
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <div class="alert">
+                <strong>{{ error|escape }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endif %}
+
+
+
+<form method="post" action="/student">
+
+        <h3><a href="/">Back</a></h3>
+
+
+    <table>
+        <tr>STUDENT</tr>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" name="name"></td>
+        </tr>
+        <tr>
+        <td>Birthday</td>
+        <td><input type="date" name="birthday"></td>
+        </tr>
+        <tr>
+            <td>Study Year</td>
+            <td><input type="number" name="study_year"></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Save"></td>
+        </tr>
+    </table>
+
+</form>
+
+<h2>All Student</h2>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Birthday</th>
+        <th>Study Year</th>
+    </tr>
+    {% for student in students %}
+        <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.birthday }}</td>
+            <td>{{ student.study_year }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>

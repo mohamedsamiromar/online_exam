@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>assigen exam</title>
+</head>
+<body>
+<form>
+        {% csrf_token %}
+    <tr>
+        <td> Student</td>
+        <td><input name="email"  type="text"></td>
+    </tr>
+
+
+    <tr>
+        <select name="exam">
+            {% for exam in exams %}
+                <option value="{{ exam.id }}"> {{ exam.name }}</option>
+            {% endfor %}
+        </select>
+    </tr>
+
+
+</form>
+</body>
+</html>
